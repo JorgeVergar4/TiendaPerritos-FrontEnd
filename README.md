@@ -21,4 +21,4 @@ Para iniciar un despliegue manualmente (util para actualizaciones de credenciale
 3. Presionar "Run workflow".
 
 ---
-Desarrollado por Jorge Vergara - Evaluacion Parcial N°3 - Ingenieria DevOps.
+Desarrollado por Jorge Vergara y fernando villalon- Evaluacion Parcial N°3 - Ingenieria DevOps.
