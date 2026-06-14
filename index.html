@@ -2,152 +2,565 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Tienda de Alimentos para Perritos &#128054;</title>
+  <title>Tienda de Alimentos para Perritos 🐶</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google Fonts for premium typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    :root {
+      --primary: #f97316;
+      --primary-hover: #ea580c;
+      --primary-light: #ffedd5;
+      --primary-dark: #c2410c;
+      
+      --secondary: #64748b;
+      --secondary-hover: #475569;
+      --secondary-light: #f1f5f9;
+      
+      --danger: #ef4444;
+      --danger-hover: #dc2626;
+      --danger-light: #fee2e2;
+      
+      --success: #10b981;
+      --success-hover: #059669;
+      --success-light: #d1fae5;
+      
+      --warning: #f59e0b;
+      --warning-light: #fef3c7;
+      
+      --bg-main: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border-color: #e2e8f0;
+      
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      background: #f5f5f5;
     }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg-main);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+    }
+
+    /* Header Styling */
     header {
-      background: #3b82f6;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
       color: white;
-      padding: 16px;
+      padding: 2.5rem 1.5rem;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      border-bottom: 4px solid var(--primary);
     }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(249, 115, 22, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-logo {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+      animation: wiggle 2s infinite ease-in-out;
+    }
+
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(8deg) scale(1.1); }
+    }
+
+    header h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(to right, #ffffff, #fed7aa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: #94a3b8;
+      font-weight: 400;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Main Container Grid */
     main {
-      max-width: 1000px;
-      margin: 20px auto;
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      flex: 1;
+      width: 100%;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
     }
-    h1, h2 {
-      margin-top: 0;
+
+    @media (min-width: 1024px) {
+      main {
+        grid-template-columns: 1.6fr 1fr;
+        align-items: start;
+      }
     }
-    .actions {
-      margin-bottom: 16px;
+
+    /* Card Panels */
+    .card-panel {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color);
+      transition: box-shadow 0.3s ease;
     }
+
+    .card-panel:hover {
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid var(--secondary-light);
+      padding-bottom: 0.75rem;
+    }
+
+    .card-header h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Buttons Styling */
     button {
-      padding: 8px 16px;
-      margin-right: 8px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.875rem;
+      padding: 0.625rem 1.25rem;
       border: none;
-      border-radius: 4px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
-      background: #3b82f6;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Button Colors */
+    button.primary, #btnCargar, #btnGuardar {
+      background: var(--primary);
       color: white;
     }
-    button.secondary {
-      background: #6b7280;
+    button.primary:hover, #btnCargar:hover, #btnGuardar:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2);
     }
-    button.danger {
-      background: #ef4444;
+    button.primary:active, #btnCargar:active, #btnGuardar:active {
+      transform: translateY(0);
     }
+
+    button.secondary, #btnCancelar {
+      background: var(--secondary-light);
+      color: var(--text-muted);
+      box-shadow: none;
+    }
+    button.secondary:hover, #btnCancelar:hover {
+      background: var(--border-color);
+      color: var(--text-main);
+      transform: translateY(-1px);
+    }
+
+    /* Action Buttons in Table */
+    .btn-action {
+      padding: 0.375rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      border-radius: 6px;
+    }
+    
+    .btn-editar {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      box-shadow: none;
+    }
+    .btn-editar:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(249, 115, 22, 0.15);
+    }
+
+    .btn-eliminar {
+      background: var(--danger-light);
+      color: var(--danger-hover);
+      box-shadow: none;
+    }
+    .btn-eliminar:hover {
+      background: var(--danger);
+      color: white;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(239, 68, 68, 0.15);
+    }
+
+    /* Table Dashboard Styling */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 16px;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
       text-align: left;
+      font-size: 0.925rem;
     }
+
     th {
-      background: #e5e7eb;
+      background: #f1f5f9;
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: 0.875rem 1rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid var(--border-color);
     }
-    tr:nth-child(even) {
-      background: #f9fafb;
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      color: #334155;
+      font-weight: 400;
     }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr {
+      transition: background-color 0.2s ease;
+    }
+    
+    tr:hover {
+      background-color: #fafafb;
+    }
+
+    /* Stock Status Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.625rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .badge-in-stock {
+      background: var(--success-light);
+      color: var(--success-hover);
+    }
+    .badge-low-stock {
+      background: var(--warning-light);
+      color: var(--warning);
+    }
+    .badge-out-of-stock {
+      background: var(--danger-light);
+      color: var(--danger-hover);
+    }
+
+    .product-price {
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    /* Form Container */
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 10px;
-      margin-top: 16px;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
     }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.375rem;
+    }
+
     label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 4px;
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
     }
+
     input, textarea {
+      font-family: inherit;
       width: 100%;
-      padding: 6px;
-      border-radius: 4px;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
       border: 1px solid #d1d5db;
       box-sizing: border-box;
+      font-size: 0.95rem;
+      background-color: #fafbfc;
+      transition: all 0.2s ease;
+      color: var(--text-main);
     }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3.5px var(--primary-light);
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #94a3b8;
+    }
+
+    /* Status Div Redesign */
     .status {
-      margin-top: 10px;
+      margin-top: 1rem;
+      padding: 0.875rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .status.ok {
+      background-color: var(--success-light);
+      color: var(--success-hover);
+      border-left: 4px solid var(--success);
+      display: flex;
+    }
+
+    .status.error {
+      background-color: var(--danger-light);
+      color: var(--danger-hover);
+      border-left: 4px solid var(--danger);
+      display: flex;
+    }
+
+    /* Footer Styling */
+    footer {
+      background: #0f172a;
+      color: #64748b;
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      margin-top: auto;
+      border-top: 1px solid #1e293b;
       font-size: 0.9rem;
     }
-    .status.ok {
-      color: #16a34a;
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: center;
     }
-    .status.error {
-      color: #dc2626;
+
+    .footer-creators {
+      color: #f8fafc;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      letter-spacing: 0.02em;
+    }
+
+    .footer-creators span {
+      background: linear-gradient(135deg, #fed7aa 0%, #f97316 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    .heart-icon {
+      color: #ef4444;
+      display: inline-block;
+      animation: heartbeat 1.5s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    .footer-tech {
+      font-size: 0.8rem;
+      color: #475569;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      header {
+        padding: 2rem 1rem;
+      }
+      header h1 {
+        font-size: 1.75rem;
+      }
+      .card-panel {
+        padding: 1.25rem;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Tienda de Alimentos para Perritos &#128054;</h1>
-    <p>Gestión CRUD de productos en contenedores Docker (Frontend + Backend + MySQL)</p>
+    <div class="header-content">
+      <div class="header-logo">🐶</div>
+      <h1>Tienda de Alimentos para Perritos</h1>
+      <p>Gestión CRUD de productos en contenedores Docker (Frontend + Backend + MySQL)</p>
+    </div>
   </header>
+  
   <main>
-    <section>
-      <h2>Productos</h2>
-      <div class="actions">
-        <button id="btnCargar">Cargar Productos</button>
+    <!-- Left panel: Products dashboard -->
+    <section class="card-panel">
+      <div class="card-header">
+        <h2>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          Catálogo de Productos
+        </h2>
+        <button id="btnCargar" class="primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+          Actualizar Lista
+        </button>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Precio</th>
-            <th>Stock</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="tbodyProductos">
-          <!-- Aqu�� se insertan filas dinamicamente -->
-        </tbody>
-      </table>
+      
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 8%">ID</th>
+              <th style="width: 25%">Nombre</th>
+              <th style="width: 32%">Descripción</th>
+              <th style="width: 15%">Precio</th>
+              <th style="width: 10%">Stock</th>
+              <th style="width: 10%">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyProductos">
+            <!-- Aqu se insertan filas dinamicamente -->
+          </tbody>
+        </table>
+      </div>
     </section>
 
-    <section>
-      <h2 id="formTitle">Nuevo producto</h2>
+    <!-- Right panel: Add/Edit form -->
+    <section class="card-panel" style="position: sticky; top: 2rem;">
+      <div class="card-header">
+        <h2 id="formTitle">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M12 5v14M5 12h14"/></svg>
+          Nuevo Producto
+        </h2>
+      </div>
+      
       <div class="form-grid">
-        <div>
-          <label for="nombre">Nombre</label>
+        <div class="form-group">
+          <label for="nombre">Nombre del Producto</label>
           <input type="text" id="nombre" placeholder="Ej: Alimento Premium Cachorro" />
         </div>
-        <div>
+        <div class="form-group">
           <label for="descripcion">Descripción</label>
-          <textarea id="descripcion" rows="2" placeholder="Ej: Sabor pollo, razas pequeñas"></textarea>
+          <textarea id="descripcion" rows="3" placeholder="Ej: Receta equilibrada con sabor pollo, ideal para razas pequeñas y medianas."></textarea>
         </div>
-        <div>
-          <label for="precio">Precio</label>
+        <div class="form-group">
+          <label for="precio">Precio ($)</label>
           <input type="number" id="precio" step="0.01" min="0" placeholder="Ej: 19990" />
         </div>
-        <div>
-          <label for="stock">Stock</label>
+        <div class="form-group">
+          <label for="stock">Cantidad en Stock</label>
           <input type="number" id="stock" min="0" placeholder="Ej: 10" />
         </div>
       </div>
-      <div class="actions" style="margin-top: 12px;">
-        <button id="btnGuardar">Guardar</button>
-        <button id="btnCancelar" class="secondary">Cancelar</button>
+      
+      <div style="display: flex; gap: 0.75rem; margin-top: 1rem;">
+        <button id="btnGuardar" class="primary" style="flex: 1;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+          Guardar Producto
+        </button>
+        <button id="btnCancelar" class="secondary">
+          Cancelar
+        </button>
       </div>
+      
       <div id="status" class="status"></div>
     </section>
   </main>
 
+  <footer>
+    <div class="footer-content">
+      <div class="footer-creators">
+        Desarrollado con <span class="heart-icon">❤️</span> por <span>Jorge Vergara</span> & <span>Fernando Villalón</span>
+      </div>
+      <div>&copy; 2026 Tienda de Alimentos para Perritos. Todos los derechos reservados.</div>
+      <div class="footer-tech">Construido con HTML5, CSS3, JavaScript Vanilla y Docker</div>
+    </div>
+  </footer>
+
   <script src="app.js"></script>
 </body>
 </html>
+

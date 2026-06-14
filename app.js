@@ -47,15 +47,33 @@ function renderProductos(productos) {
   productos.forEach((p) => {
     const tr = document.createElement("tr");
 
+    // Stock level badge logic
+    let stockBadge = "";
+    if (p.stock <= 0) {
+      stockBadge = '<span class="badge badge-out-of-stock">Agotado</span>';
+    } else if (p.stock < 10) {
+      stockBadge = `<span class="badge badge-low-stock">${p.stock} (Bajo)</span>`;
+    } else {
+      stockBadge = `<span class="badge badge-in-stock">${p.stock}</span>`;
+    }
+
     tr.innerHTML = `
       <td>${p.id}</td>
-      <td>${p.nombre}</td>
-      <td>${p.descripcion || ""}</td>
-      <td>$${Number(p.precio).toFixed(2)}</td>
-      <td>${p.stock}</td>
+      <td style="font-weight: 500; color: #1e293b;">${p.nombre}</td>
+      <td>${p.descripcion || '<em style="color: #94a3b8; font-size: 0.85rem;">Sin descripción</em>'}</td>
+      <td><span class="product-price">$${Number(p.precio).toFixed(2)}</span></td>
+      <td>${stockBadge}</td>
       <td>
-        <button data-id="${p.id}" class="btn-editar">Editar</button>
-        <button data-id="${p.id}" class="btn-eliminar danger">Eliminar</button>
+        <div style="display: flex; gap: 0.5rem;">
+          <button data-id="${p.id}" class="btn-action btn-editar" title="Editar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            Editar
+          </button>
+          <button data-id="${p.id}" class="btn-action btn-eliminar" title="Eliminar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+            Eliminar
+          </button>
+        </div>
       </td>
     `;
 
@@ -82,7 +100,10 @@ function renderProductos(productos) {
 
 function limpiarFormulario() {
   editandoId = null;
-  formTitle.textContent = "Nuevo producto";
+  formTitle.innerHTML = `
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M12 5v14M5 12h14"/></svg>
+    Nuevo Producto
+  `;
   inputNombre.value = "";
   inputDescripcion.value = "";
   inputPrecio.value = "";
@@ -151,7 +172,10 @@ async function editarProducto(id) {
     if (!res.ok) throw new Error("No se pudo obtener el producto");
     const p = await res.json();
     editandoId = p.id;
-    formTitle.textContent = `Editar producto #${p.id}`;
+    formTitle.innerHTML = `
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+      Editar Producto #${p.id}
+    `;
     inputNombre.value = p.nombre;
     inputDescripcion.value = p.descripcion || "";
     inputPrecio.value = p.precio;
